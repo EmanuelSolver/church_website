@@ -1,0 +1,17 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+.message-card {
+  animation: fadeInOut 20s infinite; /* Apply fadeInOut animation for 20 seconds, repeat infinitely */
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0; /* Start with opacity 0 */
+  }
+  50% {
+    opacity: 1; /* Fade in to full opacity */
+  }
+  100% {
+    opacity: 0; /* Fade out to opacity 0 */
+  }
+}

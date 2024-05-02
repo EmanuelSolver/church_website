@@ -1,0 +1,58 @@
+.spinner div {
+    position: absolute;
+    width: 250px; /* Adjust width as needed */
+    height: 250px; /* Adjust height as needed */
+    border: 1px solid #08d6f1;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    line-height: 40px;
+}
+
+.spinner .face1 { 
+    background: rgba(9, 210, 245, 0.993);
+    color: aliceblue;
+    font-weight: 800;
+    transform: translateZ(125px); /* Adjust translation as needed */
+}
+.spinner .face2 { 
+    background: rgb(250, 255, 252);
+    font-weight: 800;
+    transform: rotateY(90deg) translateZ(125px); /* Adjust rotation and translation as needed */
+}
+.spinner .face3 { 
+    background: rgba(9, 210, 245, 0.999);
+    color: aliceblue;
+    font-weight: 800;
+    transform: rotateY(90deg) rotateX(90deg) translateZ(125px); /* Adjust rotation and translation as needed */
+}
+.spinner .face4 { 
+    background: rgb(250, 255, 252);
+    font-weight: 800;
+    transform: rotateY(180deg) rotateZ(90deg) translateZ(125px); /* Adjust rotation and translation as needed */
+}
+.spinner .face5 { 
+    background: rgba(9, 210, 245, 0.993);
+    color: aliceblue;
+    font-weight: 800;
+    transform: rotateY(-90deg) rotateZ(90deg) translateZ(125px); /* Adjust rotation and translation as needed */
+}
+.spinner .face6 { 
+    background: rgb(250, 255, 252);
+    font-weight: 800;
+    transform: rotateX(-90deg) translateZ(125px); /* Adjust rotation and translation as needed */
+}
+
+.spinner {
+    animation: spincube 45s ease-in-out infinite;
+    transform-style: preserve-3d;
+    transform-origin: 150px 150px 0; /* Adjust transform origin as needed */
+}
+
+
+@keyframes spincube {
+    16%      { transform: rotateY(-90deg); }
+    33%      { transform: rotateY(-90deg) rotateZ(90deg); }
+    50%      { transform: rotateY(180deg) rotateZ(90deg); }
+    66%      { transform: rotateY(90deg) rotateX(90deg); }
+    83%      { transform: rotateX(90deg); }
+}

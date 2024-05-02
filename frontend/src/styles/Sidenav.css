@@ -1,0 +1,5 @@
+
+.dashboard-container {
+    display: flex; /* Use flexbox for side-by-side layout */
+}
+
