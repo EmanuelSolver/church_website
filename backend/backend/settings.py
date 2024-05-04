@@ -30,7 +30,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'landingpage',
     'accounts',
-    'activities',
+    'departments',
+    'events',
+    'media',
     'appointments',
     'knox',
 ]

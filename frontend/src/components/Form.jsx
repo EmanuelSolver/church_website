@@ -41,7 +41,6 @@ const Form = ({ route, method }) => {
 
                     dispatch({type: "LOGIN_SUCCESS", payload: res.data});
                     navigate("/dashboard");
-
                     
                 } else {
                     navigate("/signin");

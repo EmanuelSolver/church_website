@@ -27,7 +27,7 @@ const CreateEvents = () => {
 
     const fetchEvents = async () => {
         try {
-            const response = await axios.get(`${apiDomain}/activity/events/`);
+            const response = await axios.get(`${apiDomain}/event/events/`);
             setEvents(response.data);
         } catch (error) {
             console.error('Error fetching events:', error);
@@ -41,7 +41,7 @@ const CreateEvents = () => {
 
     const handleDeleteEvent = async (eventId) => {
         try {
-            const response = await axios.post(`${apiDomain}/activity/delete-event/${eventId}/`);
+            const response = await axios.post(`${apiDomain}/event/delete-event/${eventId}/`);
             console.log('Event deleted:', response.data);
             fetchEvents(); // Refresh slots list after successful deletion
         } catch (error) {
@@ -53,7 +53,7 @@ const CreateEvents = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${apiDomain}/activity/create-event/`, formData);
+            await axios.post(`${apiDomain}/event/create-event/`, formData);
             // Reset form fields after successful submission
             setFormData({
                 title: '',
@@ -80,7 +80,7 @@ const CreateEvents = () => {
 
     const handleUpdateEvent = async (updatedData) => {
         try {
-            const response = await axios.post(`${apiDomain}/activity/update-event/${updatedData.id}/`, updatedData);
+            const response = await axios.post(`${apiDomain}/event/update-event/${updatedData.id}/`, updatedData);
             console.log('Event updated:', response.data);
             fetchEvents();
         } catch (error) {
@@ -102,7 +102,7 @@ const CreateEvents = () => {
 
 
     return (
-        <div className="container" style={{width: "100%"}}>
+        <div className="container" style={{width: "100vw"}}>
             <div className="row">
                 <div className="col-md-12 mb-4">
                     <div className="card shadow">

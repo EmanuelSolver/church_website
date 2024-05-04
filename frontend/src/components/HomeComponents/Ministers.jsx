@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios'
 import { apiDomain } from '../../utils/utils';
 
-const Gallery = () => {
+const Ministers = () => {
     const [ministers, setMinisters] = useState([]);
 
     useEffect(() => {
@@ -69,4 +69,4 @@ const Gallery = () => {
     );
 };
 
-export default Gallery;
+export default Ministers;

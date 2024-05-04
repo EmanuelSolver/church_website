@@ -4,9 +4,13 @@ import { apiDomain } from '../../utils/utils';
 import { useContext } from 'react';
 import { Context } from '../../context/userContext/Context';
 import { RiDeleteBin6Line, RiEditLine } from 'react-icons/ri';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
 const Departments = () => {
     const { user } = useContext(Context)
+    const [showModal, setShowModal] = useState(false);
+
 
     const [departments, setDepartments] = useState([]);
     const [userId, setUserId] = useState(0);
@@ -17,6 +21,11 @@ const Departments = () => {
         leader: '',
         description: ''
     });
+
+        // Function to toggle modal visibility
+    const toggleModal = () => {
+        setShowModal(!showModal);
+    };
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
@@ -32,7 +41,7 @@ const Departments = () => {
 
     const fetchDepartments = async () => {
         try {
-            const response = await axios.get(`${apiDomain}/activity/departments`);
+            const response = await axios.get(`${apiDomain}/department/departments`);
             setDepartments(response.data);
         } catch (error) {
             console.error('Error fetching departments:', error);
@@ -56,10 +65,11 @@ const Departments = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${apiDomain}/activity/create-department/`, formData);
+            await axios.post(`${apiDomain}/department/create-department/`, formData);
             // Refresh departments after creation
-            const response = await axios.get(`${apiDomain}/activity/departments/`);
-            setDepartments(response.data);
+            fetchDepartments()
+            // const response = await axios.get(`${apiDomain}/activity/departments/`);
+            // setDepartments(response.data);
             // Clear form data after submission
             setFormData({
                 title: '',
@@ -73,7 +83,7 @@ const Departments = () => {
 
     const handleDeleteDept = async (deptId) => {
         try {
-            const response = await axios.post(`${apiDomain}/activity/delete-department/${deptId}/`);
+            const response = await axios.post(`${apiDomain}/department/delete-department/${deptId}/`);
             console.log('You deleted the department:', response.data);
             fetchDepartments(); // Refresh department list after successful deletion
 
@@ -91,7 +101,7 @@ const Departments = () => {
     const handleJoinDepartment = async (deptId) => {
         try {
             const user_id = userId;
-            const response = await axios.post(`${apiDomain}/activity/join-department/${user_id}/${deptId}/`);
+            const response = await axios.post(`${apiDomain}/department/join-department/${user_id}/${deptId}/`);
 
             console.log('Dept. joined successfully:', response.data);
         } catch (error) {
@@ -102,11 +112,11 @@ const Departments = () => {
 
 
     return (
-        <div className="container">
+        <div className="container" style={{width: "100vw" }}>
             <div className="row">
                 {isAdmin ? (
                     <>
-                        <div className="col-md-6 mb-4">
+                        <div className="col-md-12 mb-4">
                             <div className="card shadow">
                                 <h5 className="card-title bg-primary text-white p-2">Departments</h5>
                                 <div className="card-body">
@@ -142,34 +152,42 @@ const Departments = () => {
                                 </div>
                             </div>
                         </div>
-
-                        <div className="col-md-6 mb-4">
-                            <div className="card shadow">
-                                <h5 className="card-title bg-primary text-white p-2">Create Department</h5>
-                                <div className="card-body">
-                                    <form onSubmit={handleSubmit}>
-                                        <div className="mb-3">
-                                            <label htmlFor="title" className="form-label">Title</label>
-                                            <input type="text" className="form-control" id="title" name="title" value={formData.title} onChange={handleChange} />
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="leader" className="form-label">Leader</label>
-                                            <select className="form-control" id="leader" name="leader" value={formData.leader} onChange={handleChange}>
-                                                <option value="">Select a leader</option>
-                                                {leaders.map(leader => (
-                                                    <option key={leader.id} value={leader.id}>{leader.username}</option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                        <div className="mb-3">
-                                            <label htmlFor="description" className="form-label">Description</label>
-                                            <textarea className="form-control" id="description" name="description" value={formData.description} onChange={handleChange}></textarea>
-                                        </div>
-                                        <button type="submit" className="btn btn-primary">Create</button>
-                                    </form>
-                                </div>
-                            </div>
+                        <div className="col-md-4">
+                            <button className="btn btn-primary mt-4" onClick={toggleModal}>Create Department</button>
                         </div>
+
+                        <Modal show={showModal} onHide={toggleModal}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Create a department</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                            <form onSubmit={handleSubmit}>
+                                                <div className="mb-3">
+                                                    <label htmlFor="title" className="form-label">Title</label>
+                                                    <input type="text" className="form-control" id="title" name="title" value={formData.title} onChange={handleChange} />
+                                                </div>
+                                                <div className="mb-3">
+                                                    <label htmlFor="leader" className="form-label">Leader</label>
+                                                    <select className="form-control" id="leader" name="leader" value={formData.leader} onChange={handleChange}>
+                                                        <option value="">Select a leader</option>
+                                                        {leaders.map(leader => (
+                                                            <option key={leader.id} value={leader.id}>{leader.username}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="mb-3">
+                                                    <label htmlFor="description" className="form-label">Description</label>
+                                                    <textarea className="form-control" id="description" name="description" value={formData.description} onChange={handleChange}></textarea>
+                                                </div>
+                                                <button type="submit" className="btn btn-primary">Create</button>
+                                            </form>
+
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={toggleModal}>Close</Button>
+                                <Button variant="primary" type="submit" form="editUserForm">Save Changes</Button>
+                            </Modal.Footer>
+                        </Modal>
                     </>
                 ) : (
                     <div className="col-md-12">

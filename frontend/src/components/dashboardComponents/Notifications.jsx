@@ -7,17 +7,18 @@ const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
 
     useEffect(() => {
-        const fetchNotifications = async () => {
-            try {
-                const response = await axios.get(`${apiDomain}/activity/events/`);
-                setNotifications(response.data);
-            } catch (error) {
-                console.error('Error fetching notifications:', error);
-            }
-        };
 
         fetchNotifications();
     }, []);
+
+    const fetchNotifications = async () => {
+        try {
+            const response = await axios.get(`${apiDomain}/event/events/`);
+            setNotifications(response.data);
+        } catch (error) {
+            console.error('Error fetching notifications:', error);
+        }
+    };
 
     return (
         <div className="container" style={{width:"80vw"}}>

@@ -31,7 +31,7 @@ const Media = () => {
     // Function to fetch sermons from the backend
     const fetchSermons = async () => {
         try {
-            const response = await axios.get(`${apiDomain}/activity/sermons/`);
+            const response = await axios.get(`${apiDomain}/media/sermons/`);
             setSermons(response.data);
         } catch (error) {
             console.error('Error fetching sermons:', error);
@@ -41,7 +41,7 @@ const Media = () => {
     // Function to fetch images from the backend
     const fetchImages = async () => {
         try {
-            const response = await axios.get(`${apiDomain}/activity/images/`);
+            const response = await axios.get(`${apiDomain}/media/images/`);
             setImages(response.data);
         } catch (error) {
             console.error('Error fetching images:', error);
@@ -52,7 +52,7 @@ const Media = () => {
     const handleSermonSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${apiDomain}/activity/create-sermon/`, { title: sermonTitle, link: sermonLink, quote: sermonQuote, speaker: speaker });
+            await axios.post(`${apiDomain}/media/create-sermon/`, { title: sermonTitle, link: sermonLink, quote: sermonQuote, speaker: speaker });
             fetchSermons(); // Refresh sermons list after successful submission
             setSermonLink('');
             setSermonQuote('');
@@ -65,7 +65,7 @@ const Media = () => {
     const handleImageSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${apiDomain}/activity/create-image/`, { link: imageLink, description: imageDescription });
+            await axios.post(`${apiDomain}/media/create-image/`, { link: imageLink, description: imageDescription });
             fetchImages(); // Refresh images list after successful submission
             setImageLink('');
             setImageDescription('');
@@ -76,7 +76,7 @@ const Media = () => {
 
     const handleDeleteSermon = async (id) => {
         try {
-            await axios.delete(`${apiDomain}/activity/delete-sermon/${id}/`);
+            await axios.delete(`${apiDomain}/media/delete-sermon/${id}/`);
             fetchSermons(); // Refresh sermons list after successful deletion
         } catch (error) {
             console.error('Error deleting sermon:', error);
@@ -85,7 +85,7 @@ const Media = () => {
 
     const handleDeleteImage = async (id) => {
         try {
-            await axios.delete(`${apiDomain}/activity/delete-image/${id}/`);
+            await axios.delete(`${apiDomain}/media/delete-image/${id}/`);
             fetchImages(); // Refresh sermons list after successful deletion
         } catch (error) {
             console.error('Error deleting image:', error);
@@ -93,7 +93,7 @@ const Media = () => {
     };
 
     return (
-    <div className="container">
+    <div className="container" style={{width: "100vw"}}>
         <div className="row">
             <h3 className="mt-4 mb-3 text-center" style={{ background: 'linear-gradient(to right, rgba(0, 0, 255, 0.879) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 255, 0.879) 100%)'}}>Media Management</h3>
 

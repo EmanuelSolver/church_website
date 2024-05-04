@@ -50,9 +50,11 @@ const Header = () => {
                         <li className="nav-item me-4">
                             <Link className="nav-link fw-bold" to="/youth"><FontAwesomeIcon icon={faUsers} /> Youths</Link>
                         </li>
+
                         <li className="nav-item me-4">
                             <Link className="nav-link fw-bold" to="/about"><FontAwesomeIcon icon={faInfoCircle} /> About</Link>
                         </li>
+
                         {user && (<>
                             <li className="nav-item me-4">
                                 <Link className="nav-link fw-bold" to="/dashboard"><FontAwesomeIcon icon={faTachometerAlt} /> Dashboard</Link>

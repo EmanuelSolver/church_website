@@ -1,7 +1,8 @@
 import MainContent from "../components/HomeComponents/MainContent";
 import Sermons from "../components/HomeComponents/Sermons";
 import Ministries from "../components/HomeComponents/Ministries";
-import Gallery from "../components/HomeComponents/Ministers";
+import Ministers from "../components/HomeComponents/Ministers";
+import Gallery from "../components/Gallery";
 
 const Home = () => {
 
@@ -12,6 +13,9 @@ const Home = () => {
       
       {/* Sermons */}
       <Sermons />
+
+      {/* Ministers */}
+      <Ministers />
 
       {/* Ministries */}
       <Ministries />

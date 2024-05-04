@@ -14,7 +14,7 @@ const Sermons = () => {
     // Function to fetch sermons from the backend
     const fetchSermons = async () => {
         try {
-            const response = await axios.get(`${apiDomain}/activity/sermons/`);
+            const response = await axios.get(`${apiDomain}/media/sermons/`);
             setSermons(response.data);
         } catch (error) {
             console.error('Error fetching sermons:', error);

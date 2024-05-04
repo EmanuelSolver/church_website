@@ -16,7 +16,7 @@ const YouthMinistry = () => {
         ],
         activities: [
             "Weekly Bible Study",
-            "Community Service Projects",
+            "Street Praise",
             "Youth Retreats",
             "Worship Nights",
             "Sports Events",
@@ -33,11 +33,11 @@ const YouthMinistry = () => {
                 {/* Content */}
                 <div className="container text-center text-white position-relative" style={{zIndex: 1, paddingTop: '50px', lineHeight:"60px"}}>
                     <h2>{ministryInfo.name}</h2>
-                    <p style={{fontWeight: "800"}}>{ministryInfo.description}</p>
+                    <h3 style={{fontWeight: "600", lineHeight:"2"}}>{ministryInfo.description}</h3>
                 </div>
             </div>
             <div className="container">
-                <h3 className="mb-3 p-2 bg-light">Youth Leaders</h3>
+            <h2 className="mt-4 mb-3" style={{ color:"white", background: 'linear-gradient(to right, rgba(0, 0, 255, 0.879) 0%, rgba(255, 255, 255, 0) 100%)'}}> Youth Leaders</h2>
                 <div className="row">
                     {/* Senior Pastor */}
                     <div className="col-md-6 mb-4">
@@ -62,7 +62,7 @@ const YouthMinistry = () => {
                     ))}
                 </div>
 
-                <h3 className="mb-3 p-2 bg-light">Activities</h3>
+                <h2 className="mt-4 mb-3" style={{ color:"white", background: 'linear-gradient(to right, rgba(0, 0, 255, 0.879) 0%, rgba(255, 255, 255, 0) 100%)'}}> Youth Activities</h2>
                 <div className="row">
                     {ministryInfo.activities.map((activity, index) => (
                         <div key={index} className="col-md-4 mb-4">
