@@ -9,7 +9,7 @@ urlpatterns = [
     path('department/', include('departments.urls')),
     path('event/', include('events.urls')),
     path('media/', include('media.urls')),
-
+    path('articles/', include('articles.urls')),
     path('api-auth', include('rest_framework.urls')), 
 
 ]

@@ -17,6 +17,10 @@ const Reducer = (state, action) => {
             return{
                 navigator: action.payload,
             }
+        case "ARTICLES":
+            return{
+                navigator: action.payload,
+            }
         case "MEDIA":
             return{
                 navigator: action.payload,

@@ -147,8 +147,8 @@ const Form = ({ route, method }) => {
                                     {method === "login" &&
                                         <>
                                             <div className="mb-3">
-                                                <label htmlFor="password" className="form-label">Email:</label>
-                                                <input type="email" className="form-control" name="email" value={formik.values.email} onChange={formik.handleChange} />
+                                                <label htmlFor="email" className="form-label">Email:</label>
+                                                <input type="email" className="form-control" name="email" value={formik.values.email} onChange={formik.handleChange} autoComplete="username"/>
                                             </div>
                                             <div className="mb-3">
                                                 <label htmlFor="password" className="form-label">Password:</label>

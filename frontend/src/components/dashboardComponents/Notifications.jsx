@@ -25,24 +25,31 @@ const Notifications = () => {
             <h3 className= "text-center" style={{ background: 'linear-gradient(to right, rgba(0, 0, 255, 0.879) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 255, 0.879) 100%)' }}>Church Events</h3>
 
             <div className="row">
-                {notifications.map(event => (
-                    <div key={event.id} className="col-lg-6 col-xl-4 mb-4">
-                        <div className="card">
-                            <div className="card-header bg-primary text-white">
-                                <strong>{event.title}</strong>
-                            </div>
-                            <div className="card-body">
-                                <p className="card-text"><b>Date:</b> {formatDate(event.day)}</p>
-                                <p className="card-text"><b>Time:</b> {formatTime(event.time)}</p>
-                                <p className="card-text"><b>Venue:</b> {event.venue}</p>
-                            </div>
-                            <div className="card-footer bg-light">
-                                <button className="btn btn-primary">RSVP</button>
+                {notifications && notifications.length > 0 ? (
+                    notifications.map(event => (
+                        <div key={event.id} className="col-lg-6 col-xl-4 mb-4">
+                            <div className="card">
+                                <div className="card-header bg-primary text-white">
+                                    <strong>{event.title}</strong>
+                                </div>
+                                <div className="card-body">
+                                    <p className="card-text"><b>Date:</b> {formatDate(event.day)}</p>
+                                    <p className="card-text"><b>Time:</b> {formatTime(event.time)}</p>
+                                    <p className="card-text"><b>Venue:</b> {event.venue}</p>
+                                </div>
+                                <div className="card-footer bg-light">
+                                    <button className="btn btn-primary">RSVP</button>
+                                </div>
                             </div>
                         </div>
+                    ))
+                ) : (
+                    <div className="col-12">
+                        <h6><i>No Upcoming Events available, yet...</i></h6>
                     </div>
-                ))}
+                )}
             </div>
+
         </div>
     );
 };

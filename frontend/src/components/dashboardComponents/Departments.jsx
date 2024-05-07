@@ -10,8 +10,6 @@ import Button from 'react-bootstrap/Button';
 const Departments = () => {
     const { user } = useContext(Context)
     const [showModal, setShowModal] = useState(false);
-
-
     const [departments, setDepartments] = useState([]);
     const [userId, setUserId] = useState(0);
     const [leaders, setLeaders] = useState([]);
@@ -195,7 +193,8 @@ const Departments = () => {
                             <h5 className="card-title bg-primary text-white p-2">Departments</h5>
                             <div className="card-body">
                                 <div className='row'>
-                                    {departments && departments.map(department => (
+                                    {departments && departments.length > 0 ? (
+                                    departments.map(department => (
                                         <div key={department.id} className="col-md-6">
                                             <div className="card mt-3 shadow">
                                                 <div className="card-body">
@@ -217,7 +216,12 @@ const Departments = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    ))}
+                                    ))
+                                ) : (
+                                <div className="col-12">
+                                    <h6><i>No departments available, yet...</i></h6>
+                                </div>
+                                )}
                                 </div>
                             </div>
                         </div>

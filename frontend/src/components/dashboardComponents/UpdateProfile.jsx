@@ -15,7 +15,7 @@ const UpdateProfile = () => {
 
     useEffect(() => {
         // Retrieve user data from localStorage
-        const user = localStorage.getItem('user');
+        const user = localStorage.getItem('user') || null;
         if (user) {
             // Parse user data
             const userData = JSON.parse(user);

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'events',
     'media',
     'appointments',
+    'articles',
     'knox',
 ]
 

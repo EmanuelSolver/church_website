@@ -195,7 +195,8 @@ const Appointment = () => {
 
                             <div className="card-body">
                                 <div className="row">
-                                    {slots && slots.map(slot => (
+                                    {slots && slots.length > 0 ?(
+                                    slots.map(slot => (
                                         <div key={slot.id} className="col-md-4">
                                             <div className="card mt-3 shadow">
                                                 <div className="card-body">
@@ -215,7 +216,12 @@ const Appointment = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    ))}
+                                    ))
+                                ):(
+                                    <div className="col-12">
+                                        <h6><i>No appointment tickets available, yet...</i></h6>
+                                    </div>
+                                )}
                                 </div>
                             </div>
                         </div>

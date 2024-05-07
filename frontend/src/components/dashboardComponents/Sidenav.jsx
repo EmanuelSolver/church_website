@@ -6,13 +6,17 @@ import { Context } from '../../context/navigationContext/Context';
 const SideNav = () => {
     const { dispatch } = useContext(Context);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isStaff, setIsStaff] = useState(false);
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
         if (user && user.role === 'Admin') {
             setIsAdmin(true);
         }
-    },[]);
+        if (user && user.role === 'Staff') {
+            setIsStaff(true);
+        }
+    }, []);
 
     const handleProfile = () => {
         dispatch({ type: 'PROFILE', payload: 'profile' });
@@ -28,6 +32,9 @@ const SideNav = () => {
 
     const handleAppointments = () => {
         dispatch({ type: 'APPOINTMENT', payload: 'appointment' });
+    };
+    const handleArticles = () => {
+        dispatch({ type: 'ARTICLES', payload: 'articles' });
     };
 
     const handleDepartments = () => {
@@ -75,12 +82,17 @@ const SideNav = () => {
                                 <NavLink activeclassname="activeClicked" onClick={handleEvents}>
                                     <CDBSidebarMenuItem icon="calendar-day">Events</CDBSidebarMenuItem>
                                 </NavLink>
-                            </>) : (
-                                <NavLink activeclassname="activeClicked" onClick={handleNotifications}>
-                                    <CDBSidebarMenuItem icon="bell">Notifications</CDBSidebarMenuItem>
-                                </NavLink>
-                            )}
-
+                            </>
+                        ) : isStaff ? (
+                            <NavLink activeclassname="activeClicked" onClick={handleArticles}>
+                                <CDBSidebarMenuItem icon="newspaper">Articles</CDBSidebarMenuItem>
+                            </NavLink>
+                        ) : (
+                            <NavLink activeclassname="activeClicked" onClick={handleNotifications}>
+                                <CDBSidebarMenuItem icon="bell">Notifications</CDBSidebarMenuItem>
+                            </NavLink>
+                        )}
+                        
                         <NavLink activeclassname="activeClicked" onClick={handleAppointments}>
                             <CDBSidebarMenuItem icon="calendar-alt">Appointments</CDBSidebarMenuItem>
                         </NavLink>

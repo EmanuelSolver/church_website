@@ -3,6 +3,7 @@ import Sermons from "../components/HomeComponents/Sermons";
 import Ministries from "../components/HomeComponents/Ministries";
 import Ministers from "../components/HomeComponents/Ministers";
 import Gallery from "../components/Gallery";
+import ShowArticles from "../components/HomeComponents/ShowArticles";
 
 const Home = () => {
 
@@ -19,6 +20,9 @@ const Home = () => {
 
       {/* Ministries */}
       <Ministries />
+
+      {/* Articles */}
+      <ShowArticles />
   
       {/* Gallery */}
       <Gallery />
