@@ -1,14 +1,20 @@
 import minister2 from "../images/minister2.jpg";
 import minister3 from "../images/minister3.jpg";
 import minister1 from "../images/minister1.jpg";
-import youthMinistryImage from "../images/worship.jpg";
+import youthMinistryImage1 from "../images/youthImage1.jpg";
+import youthMinistryImage2 from "../images/youthImage2.jpg"
+import youthMinistryImage3 from "../images/youthImage3.jpg"
 import "../styles/YouthMinistry.css"; // Import the CSS file
+import { Carousel } from 'react-bootstrap'; // Import the Carousel component from Bootstrap
 
 const YouthMinistry = () => {
     // Information about the Youth Ministry
     const ministryInfo = {
         name: "Kasarani Church Youth Ministry",
-        description: "Our Youth Ministry is dedicated to empowering young people to grow in their faith, develop meaningful relationships, and make a positive impact in their communities. Are you a young person looking for a family to be part of? This is your home...",
+        description1: "Our Youth Ministry is dedicated to empowering young people to grow in their faith, develop meaningful relationships, and make a positive impact in the society.",
+        description2: "Are you a young person, looking for a family to join? Feel free, you are in the right place. Welcome to the family...",
+        description3: "Many are the distractions to a young person, but I want you to know you are exceptional. You are strong and have overcome the evil one!",
+
         leaders: [
             { name: "Dennis Sart", position: "Youth Pastor", image: `${minister2}` },
             { name: "Purity Jane", position: "Chairperson", image: `${minister3}` },
@@ -26,16 +32,60 @@ const YouthMinistry = () => {
 
     return (
         <section className="youth-ministry position-relative">
-            <div className="bg-image position-relative" style={{backgroundImage: `url(${youthMinistryImage})`, backgroundSize: 'cover', height: '500px'}}>
-                {/* Semi-transparent overlay */}
-                <div className="bg-overlay position-absolute top-0 start-0 w-100 h-100" style={{backgroundColor: 'rgba(0, 0, 0, 0.5)'}}></div>
+            <Carousel>
+                <Carousel.Item>
+                        <img
+                            style={{ height: "90vh" }}
+                            className="d-block w-100"
+                            src={youthMinistryImage1}
+                            alt="First slide"
+                        />
 
-                {/* Content */}
-                <div className="container text-center text-white position-relative" style={{zIndex: 1, paddingTop: '50px', lineHeight:"60px"}}>
-                    <h2>{ministryInfo.name}</h2>
-                    <h3 style={{fontWeight: "600", lineHeight:"2"}}>{ministryInfo.description}</h3>
-                </div>
-            </div>
+                        <Carousel.Caption>
+                        <h2 className="ministry-name">{ministryInfo.name}</h2>
+
+                        <div style={{textAlign: 'left', position: "absolute", bottom: "200px", left: "15%", transform: "translateX(-25%)", padding:"20px"}}>
+                            <h3 style={{ fontWeight: "600", color: "white", lineHeight: "2" }}>{ministryInfo.description1}</h3>
+                        </div>
+                        </Carousel.Caption>
+                </Carousel.Item>
+
+                <Carousel.Item>
+                    <img
+                        style={{ height: "90vh" }}
+                        className="d-block w-100"
+                        src={youthMinistryImage2}
+                        alt="First slide"
+                    />
+                    <Carousel.Caption>
+                    <h2 className="ministry-name">{ministryInfo.name}</h2>
+
+                        <div style={{textAlign: 'left', position: "absolute", bottom: "200px", left: "15%", transform: "translateX(-25%)", padding:"20px"}}>
+                            <h3 style={{ fontWeight: "600", color: "white", lineHeight: "2" }}>{ministryInfo.description2}</h3>
+                        </div>
+                    </Carousel.Caption>
+                </Carousel.Item>
+
+                <Carousel.Item>
+                    <img
+                        style={{ height: "90vh" }}
+                        className="d-block w-100"
+                        src={youthMinistryImage3}
+                        alt="First slide"
+                    />
+
+                    <Carousel.Caption>
+                    <h2 className="ministry-name">{ministryInfo.name}</h2>
+
+                    <div style={{textAlign: 'left', position: "absolute", bottom: "200px", left: "15%", transform: "translateX(-25%)", padding:"20px"}}>
+                        <h3 style={{ fontWeight: "600", color: "white", lineHeight: "2" }}>{ministryInfo.description3}</h3>
+                    </div>
+                    </Carousel.Caption>
+            </Carousel.Item>
+
+                {/* Add additional Carousel.Item for more slides */}
+            </Carousel>
+
             <div className="container">
             <h2 className="mt-4 mb-3" style={{ color:"white", background: 'linear-gradient(to top right, rgba(0, 0, 255, 0.879), rgba(255, 255, 235, 0.4))', paddingLeft: '15px', borderRadius: "10px", boxShadow:"2px 2px 2px #075cfa"}}> Youth Leaders </h2>
                 <div className="row">

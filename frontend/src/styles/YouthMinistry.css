@@ -13,3 +13,15 @@
     animation: fadeInUp 3s ease infinite;
   }
   
+.ministry-name {
+    position: absolute;
+    top: -450px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media (max-width: 768px) {
+    .ministry-name {
+        opacity: 0; /* Adjust as needed for smaller screens */
+    }
+}
