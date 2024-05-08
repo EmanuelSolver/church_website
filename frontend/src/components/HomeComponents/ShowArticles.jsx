@@ -34,7 +34,7 @@ const ShowArticles = () => {
     return (
         <section className="articles mt-5">
             <div className="container">
-                <h2 className="mt-4 mb-3" style={{ color: "white", background: 'linear-gradient(to right, rgba(0, 0, 255, 0.879) 0%, rgba(255, 255, 255, 0) 100%)', paddingLeft: '15px'}}> Build up</h2>
+                <h2 className="mt-4 mb-3" style={{ color:"white", background: 'linear-gradient(to top right, rgba(0, 0, 255, 0.879), rgba(255, 255, 235, 0.4))', paddingLeft: '15px', borderRadius: "10px", boxShadow:"2px 2px 2px #075cfa"}}> Build Up</h2>
 
                 <div className="article-list">
                     <Carousel>

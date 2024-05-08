@@ -8,7 +8,7 @@ const YouthMinistry = () => {
     // Information about the Youth Ministry
     const ministryInfo = {
         name: "Kasarani Church Youth Ministry",
-        description: "Our Youth Ministry is dedicated to empowering young people to grow in their faith, develop meaningful relationships, and make a positive impact in their communities.",
+        description: "Our Youth Ministry is dedicated to empowering young people to grow in their faith, develop meaningful relationships, and make a positive impact in their communities. Are you a young person looking for a family to be part of? This is your home...",
         leaders: [
             { name: "Dennis Sart", position: "Youth Pastor", image: `${minister2}` },
             { name: "Purity Jane", position: "Chairperson", image: `${minister3}` },
@@ -37,7 +37,7 @@ const YouthMinistry = () => {
                 </div>
             </div>
             <div className="container">
-            <h2 className="mt-4 mb-3" style={{ color:"white", background: 'linear-gradient(to right, rgba(0, 0, 255, 0.879) 0%, rgba(255, 255, 255, 0) 100%)'}}> Youth Leaders</h2>
+            <h2 className="mt-4 mb-3" style={{ color:"white", background: 'linear-gradient(to top right, rgba(0, 0, 255, 0.879), rgba(255, 255, 235, 0.4))', paddingLeft: '15px', borderRadius: "10px", boxShadow:"2px 2px 2px #075cfa"}}> Youth Leaders </h2>
                 <div className="row">
                     {/* Senior Pastor */}
                     <div className="col-md-6 mb-4">
@@ -62,7 +62,7 @@ const YouthMinistry = () => {
                     ))}
                 </div>
 
-                <h2 className="mt-4 mb-3" style={{ color:"white", background: 'linear-gradient(to right, rgba(0, 0, 255, 0.879) 0%, rgba(255, 255, 255, 0) 100%)'}}> Youth Activities</h2>
+                <h2 className="mt-4 mb-3" style={{ color:"white", background: 'linear-gradient(to top right, rgba(0, 0, 255, 0.879), rgba(255, 255, 235, 0.4))', paddingLeft: '15px', borderRadius: "10px", boxShadow:"2px 2px 2px #075cfa"}}> Youth Activities </h2>
                 <div className="row">
                     {ministryInfo.activities.map((activity, index) => (
                         <div key={index} className="col-md-4 mb-4">

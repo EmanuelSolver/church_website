@@ -7,7 +7,7 @@ const Ministries = () => {
     return (
         <section className="ministries mt-5">
             <div className="container">
-                <h2 className="mt-4 mb-3" style={{ color:"white", paddingLeft: '15px', background: 'linear-gradient(to right, rgba(0, 0, 255, 0.879) 0%, rgba(255, 255, 255, 0) 100%)'}}> Ministries</h2>
+                <h2 className="mt-4 mb-3" style={{ color:"white", background: 'linear-gradient(to top right, rgba(0, 0, 255, 0.879), rgba(255, 255, 235, 0.4))', paddingLeft: '15px', borderRadius: "10px", boxShadow:"2px 2px 2px #075cfa"}}> Ministries </h2>
                 <p className="mb-4"><b>We request all church members to join at least one of our departments. To join a department, you just need to <a href="/register" style={{textDecoration:"none"}}>Sign Up</a> and select one of the departments that you want to serve in </b></p>
                 <div className="row row-cols-1 row-cols-md-2 g-4"> {/* Grid for cards and images */}
                     <div className="col">
