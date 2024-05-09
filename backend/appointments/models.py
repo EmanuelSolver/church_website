@@ -7,7 +7,7 @@ class AppointmentSlot(models.Model):
     day = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
-    status = models.TextField(default="New")
+    status = models.CharField(max_length= 20, default="New") # Can be New, Booked, Approved
 
 
 class Appointments(models.Model):

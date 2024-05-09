@@ -7,12 +7,12 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "../utils/utils";
 import LoadingIndicator from "./LoadingIndicator";
 import video from '../images/bg-video.mp4'
 import validationSchema from '../utils/validationSchema'
-import {toast, ToastContainer} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Context } from "../context/userContext/Context";
 
 const Form = ({ route, method }) => {
     const { dispatch } = useContext(Context);
-
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -40,13 +40,15 @@ const Form = ({ route, method }) => {
                     localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
 
                     dispatch({type: "LOGIN_SUCCESS", payload: res.data});
+                    toast.success("Login successful!");
                     navigate("/dashboard");
                     
                 } else {
                     navigate("/signin");
                 }
             } catch (error) {
-                 toast.error(error.response.data.error);
+                toast.error("Failed to register. Please try again later.");
+                toast.error(error.response.data.error);
             } finally {
                 setLoading(false);
             }
@@ -73,6 +75,8 @@ const Form = ({ route, method }) => {
             </video>
 
             <div className="container">
+                <ToastContainer />
+
                 <div className="row justify-content-center">
                     <div className="col-md-6">
                         <div className="card mt-5">
@@ -159,18 +163,6 @@ const Form = ({ route, method }) => {
                                     {loading && <LoadingIndicator />}
                                     <button className="btn btn-primary" type="submit">{name}</button>
 
-                                     <ToastContainer
-                                        position="top-right"
-                                        autoClose={5000}
-                                        hideProgressBar={false}
-                                        newestOnTop={false}
-                                        closeOnClick
-                                        rtl={false}
-                                        pauseOnFocusLoss
-                                        draggable
-                                        pauseOnHover
-                                        theme="dark"
-                                    />
                                 </form>
 
                             </div>

@@ -38,12 +38,15 @@ const Profile = () => {
                                     <h5 className="card-title bg-primary text-white p-2 mb-4">More Info</h5>
                                     <div className="card-body">
                                     <div>
-                                    <h6><b>Your Departments</b></h6>
-                                    <ul>
-                                        {user.departments && user.departments.map((department, index) => (
-                                            <p key={index}>{department}</p>
-                                        ))}
-                                    </ul>
+                                    <h6><b>Your Departments:</b></h6>
+                                    <ol>
+                                        {user.departments.length > 0 ?( 
+                                            user.departments.map((department, index) => (
+                                            <li key={index}>{department}</li>
+                                        ))
+                                    ): <h6><i>No Department joined yet!</i></h6>
+                                    }
+                                    </ol>
                                 </div>                                        
                                 <p className="card-text"><b>Gender:</b> {user.gender}</p>
                                 </div>

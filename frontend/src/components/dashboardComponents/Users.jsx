@@ -4,6 +4,8 @@ import { apiDomain } from '../../utils/utils';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { RiDeleteBin6Line, RiEditLine } from 'react-icons/ri';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -53,9 +55,11 @@ const Users = () => {
         e.preventDefault();
         try {
             await axios.post(`${apiDomain}/account/add-pastor/`, newPastorData);
+            toast.success('Pastor added successfully');
             setShowModal(false);
             fetchPastors();
         } catch (error) {
+            toast.error('Failed to add pastor. Please try again later.');
             console.error('Error adding new pastor:', error);
         }
     };
@@ -65,8 +69,10 @@ const Users = () => {
         const handleDeleteUser = async (id) => {
             try {
                 await axios.delete(`${apiDomain}/account/delete-user/${id}/`);
+                toast.success('User deleted successfully');
                 fetchUsers();
             } catch (error) {
+                toast.error(error);
                 console.error('Error deleting user:', error);
             }
         };
@@ -74,11 +80,12 @@ const Users = () => {
 
         const handleUpdateUser = async (updatedData) => {
             try {
-                const response = await axios.post(`${apiDomain}/account/update-user/${updatedData.id}/`, updatedData);
-                console.log('User updated:', response.data);
+                await axios.post(`${apiDomain}/account/update-user/${updatedData.id}/`, updatedData);
+                toast.success('User updated successfully');
                 fetchUsers();
                 fetchPastors();
             } catch (error) {
+                toast.error('Failed to update user. Please try again later.');
                 console.error('Error updating user:', error);
             }
         };
@@ -88,6 +95,7 @@ const Users = () => {
         const handleDeletePastor = async (id) => {
             try {
                 await axios.delete(`${apiDomain}/account/delete-pastor/${id}/`);
+                toast.success('Pastor deleted successfully');
                 fetchPastors();
             } catch (error) {
                 console.error('Error deleting pastor:', error);
@@ -97,8 +105,11 @@ const Users = () => {
         const handleUpdatePastor = async (updatedPastorData) => {
             try {
                 await axios.post(`${apiDomain}/account/update-pastor/${updatedPastorData.id}/`, updatedPastorData);
+                toast.success('Pastor updated successfully');
                 fetchPastors();
+                setShowEditPastorModal(false);
             } catch (error) {
+                toast.error('Failed to update pastor. Please try again later.');
                 console.error('Error updating pastor:', error);
             }
         };
@@ -139,6 +150,7 @@ const Users = () => {
 
     return (
         <div className="container" style={{width: "100vw" }}>
+            <ToastContainer />
 
             {/* showing list of all users */} 
             <h4 className='bg-primary text-white p-2 mb-4'>All Users Info</h4>

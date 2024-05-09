@@ -4,7 +4,8 @@ import { apiDomain } from '../../utils/utils';
 import { formatDate,formatTime } from '../../utils/constantFunctions';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Appointment = () => {
     const [showModal, setShowModal] = useState(false);
@@ -15,7 +16,6 @@ const Appointment = () => {
         day: '',
         start_time: '',
         end_time: '',
-        reason: ''
     });
     const [slots, setSlots] = useState([]);
     const [appointments, setAppointments] = useState([]);
@@ -72,7 +72,15 @@ const Appointment = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+
+        if (name === 'pastor') {
+            // Convert the selected pastor's ID to a number
+            const pastorId = parseInt(value);
+            setFormData({ ...formData, pastor: pastorId }); // Update pastor ID in the form data
+        } else {
+            // Handle other form inputs
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     const handleBookSlot = async (slotId) => {
@@ -82,20 +90,22 @@ const Appointment = () => {
             bookingData.append('member', member);
             bookingData.append('reason', bookReason);
     
-            const response = await axios.post(`${apiDomain}/appointment/book-slot/`, bookingData);
-            console.log('Slot booked:', response.data);
+            await axios.post(`${apiDomain}/appointment/book-slot/`, bookingData);
+            toast.success('Ticket booked successfully!');
             fetchSlots(); // Refresh slots list after successful booking
         } catch (error) {
+            toast.error('Error booking slot', error);
             console.error('Error booking slot:', error);
         }
     };
     
     const handleApproveSlot = async (slotId) => {
         try {
-            const response = await axios.post(`${apiDomain}/appointment/approve-slot/${slotId}/`);
-            console.log('Slot approved:', response.data);
+            await axios.post(`${apiDomain}/appointment/approve-slot/${slotId}/`);
+            toast.success('Appointment approved successfully!')
             fetchSlots(); 
         } catch (error) {
+            toast.error('Error approving slot', error);
             console.error('Error approving slot:', error);
         }
     };
@@ -104,8 +114,10 @@ const Appointment = () => {
         try {
             const response = await axios.post(`${apiDomain}/appointment/delete-slot/${slotId}/`);
             console.log('Slot deleted:', response.data);
+            toast.success('Slot deleted successfully!')
             fetchSlots(); // Refresh slots list after successful deletion
         } catch (error) {
+            toast.error('Error deleting slot', error);
             console.error('Error deleting the slot:', error);
         }
     };
@@ -113,18 +125,25 @@ const Appointment = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${apiDomain}/appointment/create-slot/`, formData);
-            console.log('Appointment slot created:', response.data);
+            await axios.post(`${apiDomain}/appointment/create-slot/`, formData);
+
+            toast.success('Appointment Ticket created successfully!');           
             setFormData({
                 pastor: '',
                 day: '',
                 start_time: '',
                 end_time: '',
-                reason: ''
             });
             fetchSlots();
+            toggleModal(false);
         } catch (error) {
-            console.error('Error creating appointment slot:', error);
+            if (error.response && error.response.status === 400) {
+                // Handle validation errors
+                toast.error('Validation error: Please check your input and try again.');
+            } else {
+                console.error('Error creating appointment slot:', error);
+                toast.error('Failed to create appointment slot. Please try again later.');
+            }
         }
     };
 
@@ -135,8 +154,9 @@ const Appointment = () => {
 
     return (
         <div className="container" style={{width: "100vw"}}>
-            <div className="row">
+            <ToastContainer />
 
+            <div className="row">
                 {/* Display appointments to staff only */}
                 <div className={(isStaff && !isAdmin) ? "col-md-12" : "col-md-8"}>
                     {(isStaff && !isAdmin) && (<>
@@ -205,8 +225,8 @@ const Appointment = () => {
                                                     </div>
                                                     <h5 className="card-title">Meet {slot.pastor_name}</h5>
                                                     <p className="card-text">Day: {formatDate(slot.day)}</p>
-                                                    <p className="card-text">Start: {formatTime(slot.start_time)}</p>
-                                                    <p className="card-text">End: {formatTime(slot.end_time)}</p>
+                                                    <p className="card-text">Starts at: {formatTime(slot.start_time)}</p>
+                                                    <p className="card-text">Ends at: {formatTime(slot.end_time)}</p>
                                                     {!isAdmin && slot.status === 'New' && (
                                                         <div className="mb-3">
                                                             <input type="text" style={{marginBottom:"20px"}} className="form-control card-text" placeholder="Type reason for appointment..." value={bookReason} onChange={(e) => setBookReason(e.target.value)} />

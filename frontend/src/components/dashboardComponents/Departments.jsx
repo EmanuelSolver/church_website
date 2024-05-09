@@ -6,6 +6,8 @@ import { Context } from '../../context/userContext/Context';
 import { RiDeleteBin6Line, RiEditLine } from 'react-icons/ri';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Departments = () => {
     const { user } = useContext(Context)
@@ -57,7 +59,14 @@ const Departments = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        if (name === 'leader') {
+            // Convert the selected pastor's ID to a number
+            const leaderId = parseInt(value);
+            setFormData({ ...formData, leader: leaderId }); // Update pastor ID in the form data
+        } else {
+            // Handle other form inputs
+            setFormData({ ...formData, [name]: value });
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -66,14 +75,13 @@ const Departments = () => {
             await axios.post(`${apiDomain}/department/create-department/`, formData);
             // Refresh departments after creation
             fetchDepartments()
-            // const response = await axios.get(`${apiDomain}/activity/departments/`);
-            // setDepartments(response.data);
-            // Clear form data after submission
+            toast.success('Department created successfully!');
             setFormData({
                 title: '',
                 leader: '',
                 description: ''
             });
+            toggleModal();
         } catch (error) {
             console.error('Error creating department:', error);
         }
@@ -83,9 +91,11 @@ const Departments = () => {
         try {
             const response = await axios.post(`${apiDomain}/department/delete-department/${deptId}/`);
             console.log('You deleted the department:', response.data);
+            toast.error('Department deleted successfully!');
             fetchDepartments(); // Refresh department list after successful deletion
 
         } catch (error) {
+            toast.error('Error while deleting the department. Please try again later.');
             console.error('Error while deleting the department:', error);
         }
     };
@@ -100,9 +110,10 @@ const Departments = () => {
         try {
             const user_id = userId;
             const response = await axios.post(`${apiDomain}/department/join-department/${user_id}/${deptId}/`);
-
+            toast.success('You have joined the department successfully!');
             console.log('Dept. joined successfully:', response.data);
         } catch (error) {
+            toast.error('Error while joining the department. Please try again later.')
             console.error('Error joining the department:', error);
         }
     };
@@ -111,6 +122,8 @@ const Departments = () => {
 
     return (
         <div className="container" style={{width: "100vw" }}>
+            <ToastContainer />
+
             <div className="row">
                 {isAdmin ? (
                     <>
@@ -160,25 +173,25 @@ const Departments = () => {
                             </Modal.Header>
                             <Modal.Body>
                             <form onSubmit={handleSubmit}>
-                                                <div className="mb-3">
-                                                    <label htmlFor="title" className="form-label">Title</label>
-                                                    <input type="text" className="form-control" id="title" name="title" value={formData.title} onChange={handleChange} />
-                                                </div>
-                                                <div className="mb-3">
-                                                    <label htmlFor="leader" className="form-label">Leader</label>
-                                                    <select className="form-control" id="leader" name="leader" value={formData.leader} onChange={handleChange}>
-                                                        <option value="">Select a leader</option>
-                                                        {leaders.map(leader => (
-                                                            <option key={leader.id} value={leader.id}>{leader.username}</option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-                                                <div className="mb-3">
-                                                    <label htmlFor="description" className="form-label">Description</label>
-                                                    <textarea className="form-control" id="description" name="description" value={formData.description} onChange={handleChange}></textarea>
-                                                </div>
-                                                <button type="submit" className="btn btn-primary">Create</button>
-                                            </form>
+                                <div className="mb-3">
+                                    <label htmlFor="title" className="form-label">Title</label>
+                                    <input type="text" className="form-control" id="title" name="title" value={formData.title} onChange={handleChange} />
+                                </div>                                           
+                                <div className="mb-3">
+                                    <label htmlFor="leader" className="form-label">Leader</label>
+                                    <select className="form-control" id="leader" name="leader" value={formData.leader} onChange={handleChange}>
+                                        <option value="">Select a leader</option>
+                                        {leaders.map(leader => (
+                                            <option key={leader.id} value={leader.id}>{leader.username}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="description" className="form-label">Description</label>
+                                    <textarea className="form-control" id="description" name="description" value={formData.description} onChange={handleChange}></textarea>
+                                </div>
+                                <button type="submit" className="btn btn-primary">Create</button>
+                            </form>
 
                             </Modal.Body>
                             <Modal.Footer>
@@ -186,47 +199,45 @@ const Departments = () => {
                                 <Button variant="primary" type="submit" form="editUserForm">Save Changes</Button>
                             </Modal.Footer>
                         </Modal>
-                    </>
-                ) : (
-                    <div className="col-md-12">
-                        <div className="card mt-4">
-                            <h5 className="card-title bg-primary text-white p-2">Departments</h5>
-                            <div className="card-body">
-                                <div className='row'>
-                                    {departments && departments.length > 0 ? (
-                                    departments.map(department => (
-                                        <div key={department.id} className="col-md-6">
-                                            <div className="card mt-3 shadow">
-                                                <div className="card-body">
-                                                    <h5><strong>{department.title}</strong></h5>
-                                                    <p><b>Led by</b> {department.leader_name}</p>
-                                                    <p><b>About the ministry:</b></p>
-                                                    <p>{department.description}</p>
-                                                    {user.departments && (
-                                                        <p>
-                                                            {user.departments.includes(department.title) ? (
-                                                                // If user is already a member of the department
-                                                                <span style={{color: "green"}}>Already a member</span>
-                                                            ) : (
-                                                                // If user is not a member of the department
-                                                                <button className="btn btn-primary" onClick={() => handleJoinDepartment(department.id)}>Join</button>
-                                                            )}
-                                                        </p>
-                                                    )}
+                    </>) : (
+                        <div className="col-md-12">
+                            <div className="card mt-4">
+                                <h5 className="card-title bg-primary text-white p-2">Departments</h5>
+                                <div className="card-body">
+                                    <div className='row'>
+                                        {departments && departments.length > 0 ? (
+                                        departments.map(department => (
+                                            <div key={department.id} className="col-md-6">
+                                                <div className="card mt-3 shadow">
+                                                    <div className="card-body">
+                                                        <h5><strong>{department.title}</strong></h5>
+                                                        <p><b>Led by</b> {department.leader_name}</p>
+                                                        <p><b>About the ministry:</b></p>
+                                                        <p>{department.description}</p>
+                                                        {user.departments && (
+                                                            <p>
+                                                                {user.departments.includes(department.title) ? (
+                                                                    // If user is already a member of the department
+                                                                    <span style={{color: "green"}}>Already a member</span>
+                                                                ) : (
+                                                                    // If user is not a member of the department
+                                                                    <button className="btn btn-primary" onClick={() => handleJoinDepartment(department.id)}>Join</button>
+                                                                )}
+                                                            </p>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))
-                                ) : (
-                                <div className="col-12">
-                                    <h6><i>No departments available, yet...</i></h6>
-                                </div>
-                                )}
+                                        ))
+                                    ) : (
+                                    <div className="col-12">
+                                        <h6><i>No departments available, yet...</i></h6>
+                                    </div>
+                                    )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
                 )}
             </div>
         </div>

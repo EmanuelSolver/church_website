@@ -4,12 +4,12 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from .models import Department, JoinedDepartment
 from accounts.models import CustomUser
-from .serializers import DepartmentSerializer, JoinedDepartmentSerializer
+from .serializers import CreateDepartmentSerializer, DepartmentSerializer, JoinedDepartmentSerializer
 
 
 class CreateDepartment(APIView):
     def post(self, request, format=None):
-        serializer = DepartmentSerializer(data=request.data)
+        serializer = CreateDepartmentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

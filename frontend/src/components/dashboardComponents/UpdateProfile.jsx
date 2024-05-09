@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import api from '../../api';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const UpdateProfile = () => {
     const [userData, setUserData] = useState(null);
@@ -41,10 +43,12 @@ const UpdateProfile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await api.patch(`update-user/${userData.id}/`, formData);
+            const response = await api.patch(`account/update-user/${userData.id}/`, formData);
             console.log('User profile updated:', response.data);
+            toast.success('Profile updated successfully!');
             // Optionally, you can redirect the user to another page after successful update
         } catch (error) {
+            toast.error('An error occurred. Please try again.');
             console.error('Error updating user profile:', error);
         }
     };
@@ -55,6 +59,7 @@ const UpdateProfile = () => {
 
     return (
         <div className="container" style={{width: "80vw"}}>
+            <ToastContainer />
             <div className="row justify-content-center">
                 <div className="col-md-6">
                     <div className="card mt-5">

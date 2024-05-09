@@ -87,12 +87,15 @@ const SideNav = () => {
                             <NavLink activeclassname="activeClicked" onClick={handleArticles}>
                                 <CDBSidebarMenuItem icon="newspaper">Articles</CDBSidebarMenuItem>
                             </NavLink>
-                        ) : (
+                        ): (
                             <NavLink activeclassname="activeClicked" onClick={handleNotifications}>
                                 <CDBSidebarMenuItem icon="bell">Notifications</CDBSidebarMenuItem>
                             </NavLink>
-                        )}
-                        
+                        )
+                    }
+                        <NavLink activeclassname="activeClicked" onClick={handleNotifications}>
+                            <CDBSidebarMenuItem icon="bell">Notifications</CDBSidebarMenuItem>
+                        </NavLink>
                         <NavLink activeclassname="activeClicked" onClick={handleAppointments}>
                             <CDBSidebarMenuItem icon="calendar-alt">Appointments</CDBSidebarMenuItem>
                         </NavLink>

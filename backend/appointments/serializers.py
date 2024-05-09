@@ -6,7 +6,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ['id', 'username', 'email']  
-        
+
+class CreateSlotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppointmentSlot
+        fields = ['id','pastor','day', 'start_time', 'end_time', 'status']        
+      
         
 class AppointmentSlotsSerializer(serializers.ModelSerializer):
     pastor_name = serializers.CharField(source='pastor.username')

@@ -5,6 +5,8 @@ import { apiDomain } from '../../utils/utils';
 import { FaQuoteLeft, FaQuoteRight } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import moment from 'moment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateArticles = () => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -38,22 +40,23 @@ const CreateArticles = () => {
     const handlePostArticle = async () => {
         try {
             await axios.post(`${apiDomain}/articles/create-article/`, formData);
-
+    
             setFormData({
                 writer: JSON.parse(localStorage.getItem('user')).id, // Resetting writer to the current user
                 title: '',
                 content: '',
             });
-
+    
             setShowModal(false);
             fetchArticles();
-
-            alert('Article posted successfully!');
+    
+            toast.success('Article posted successfully!');
         } catch (error) {
             console.error('Error posting article:', error);
-            alert('Failed to post article. Please try again later.');
+            toast.error('Failed to post article. Please try again later.');
         }
     };
+    
 
     const handleDeleteArticle = async (id) => {
         try {
@@ -69,6 +72,8 @@ const CreateArticles = () => {
 
     return (
         <div className="container">
+            <ToastContainer />
+
             <div className="row">
                 <div className="articles">
                     <Modal show={showModal} onHide={() => setShowModal(false)}>

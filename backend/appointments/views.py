@@ -1,13 +1,13 @@
 from rest_framework import generics
 from .models import AppointmentSlot, Appointments
-from .serializers import AppointmentSlotsSerializer, AppointmentsSerializer
+from .serializers import *
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 class CreateAppointmentSlotView(APIView):
     def post(self, request):
-        serializer = AppointmentSlotsSerializer(data=request.data)
+        serializer = CreateSlotSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -1,6 +1,11 @@
 from rest_framework import serializers
 from .models import Department, JoinedDepartment
 
+class CreateDepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        fields = ['id', 'title', 'leader', 'description', 'date']
+
 class DepartmentSerializer(serializers.ModelSerializer):
     leader_name = serializers.CharField(source='leader.username')
 
