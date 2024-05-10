@@ -1,6 +1,5 @@
 from django.urls import path
 from . import views
-from knox.views import LogoutView, LogoutAllView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import CustomTokenObtainPairSerializer
 
@@ -18,9 +17,5 @@ urlpatterns = [
     path('update-user/<int:pk>/', views.UpdateUserAPI.as_view()),  # Add <int:pk> here
     path('delete-user/<int:pk>/', views.DeleteUserView.as_view(), name='delete_user'),
 
-    #below urls are currently not in use
-    path('login/', views.LoginAPIView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-    path('logout-all/', LogoutAllView.as_view(), name='logout-all'),
 ]
 

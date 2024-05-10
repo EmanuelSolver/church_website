@@ -54,7 +54,7 @@ class CustomUser(AbstractBaseUser):
         return True
     
 class Pastor(models.Model):
-    pastor = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    pastor = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     fellowship = models.CharField(max_length=20)
     ordination_status = models.CharField(max_length=20, default='awaiting')  # Add default value
     image = models.URLField(blank=True, null=True)  # Allow blank and null values for the image URL

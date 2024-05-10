@@ -5,9 +5,6 @@ from rest_framework import status, generics
 from rest_framework.views import APIView
 from .models import CustomUser, Pastor
 from .serializers import  *
-from knox import views as knox_views
-from django.contrib.auth import authenticate, login as auth_login
-from django.db import transaction
 from django.http import JsonResponse
 from rest_framework.response import Response
 
@@ -16,29 +13,6 @@ class CreateUserAPI(CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CreateUserSerializer
     permission_classes = (AllowAny,)
-
-
-
-class LoginAPIView(knox_views.LoginView):
-    permission_classes = (AllowAny, )
-    serializer_class = LoginSerializer
-    
-    @transaction.atomic
-    def post(self, request, format=None):
-        serializer = self.serializer_class(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            email = serializer.validated_data['email']
-            password = serializer.validated_data['password']
-            user = authenticate(request, email=email, password=password)
-            if user:
-                auth_login(request, user)
-                response = super().post(request, format=None)
-                return Response(response.data, status=status.HTTP_200_OK)
-            else:
-                return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST) 
-    
 
 class CreatePastorAPI(APIView):
     permission_classes = (AllowAny,)
